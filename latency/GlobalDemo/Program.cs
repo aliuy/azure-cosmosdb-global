@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Threading;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-
+using Microsoft.Azure.Documents.Linq;
 namespace GlobalDemo
 {
     class Program
     {
-        private const string EndpointUri = "https://andrl-global.documents.azure.com:443/";
-        private const string PrimaryKey = "jQc9nfPjB2B8WuoJWtNzLV2FPvsTRnXyMnPAkPxxLZ0s19sAblwNixApq2qQUYCY35rSJKe8c94Fflk0XBjXZw==";
+        private const string EndpointUri = "https://andrl-dev2.documents.azure.com:443/";
+        private const string PrimaryKey = "rtuhaRxBZ0GoJnQfTyBJuDBVWWKnt9mjyieD6VokKgQts4eVueyBUc0d0tkcdWrDB6fJFoCuW1PmDi7B1u3quA==";
         private static DocumentClient client;
 
         static void Main(string[] args)
@@ -22,9 +24,9 @@ namespace GlobalDemo
                 ConnectionProtocol = Protocol.Tcp
             };
             //Setting read region selection preference
-            connectionPolicy.PreferredLocations.Add(LocationNames.CentralUS); // first preference
-            connectionPolicy.PreferredLocations.Add(LocationNames.SoutheastAsia); // second preference
-            connectionPolicy.PreferredLocations.Add(LocationNames.NorthEurope); // third preference
+            connectionPolicy.PreferredLocations.Add(LocationNames.WestUS2); // first preference
+            connectionPolicy.PreferredLocations.Add(LocationNames.EastUS); // second preference
+            connectionPolicy.PreferredLocations.Add(LocationNames.SoutheastAsia); // third preference
 
             client = new DocumentClient(new Uri(EndpointUri), PrimaryKey, connectionPolicy: connectionPolicy);
 
@@ -35,18 +37,15 @@ namespace GlobalDemo
                 var sw = new Stopwatch();
                 sw.Start();
                 
-                RequestOptions requestOptions = new RequestOptions
-                {
-                    PartitionKey = new PartitionKey("323558af-6957-4d0c-ac7d-adcd40ccdf4b")
-                };
+                var document = client.CreateDocumentQuery<dynamic>(UriFactory.CreateDocumentCollectionUri("db", "data"), "SELECT TOP 1 * FROM c WHERE c.pk = 'test' ORDER BY c._ts desc").ToList().FirstOrDefault();
 
-                var document = client.ReadDocumentAsync(UriFactory.CreateDocumentUri("db", "data", "9b01a96e-6d75-4129-bd04-cce4b9f783ef"), requestOptions).Result;
+                Console.WriteLine(document);
 
                 sw.Stop();
 
-                Console.WriteLine($"Read document in {sw.ElapsedMilliseconds} ms");
+                Console.WriteLine($"Query document in {sw.ElapsedMilliseconds} ms");
 
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
         }
     }
