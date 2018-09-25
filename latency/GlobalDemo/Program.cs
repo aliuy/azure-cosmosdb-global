@@ -10,8 +10,8 @@ namespace GlobalDemo
 {
     class Program
     {
-        private const string EndpointUri = "https://andrl-dev2.documents.azure.com:443/";
-        private const string PrimaryKey = "rtuhaRxBZ0GoJnQfTyBJuDBVWWKnt9mjyieD6VokKgQts4eVueyBUc0d0tkcdWrDB6fJFoCuW1PmDi7B1u3quA==";
+        private const string EndpointUri = "https://andrl.documents.azure.com:443/";
+        private const string PrimaryKey = "GOqBF7L0WKRUBVAXSAq4LedBcuXczrqlo3bw6WxC0LTk5B0IVmuHiPUnF5rG2XXq7UR7k288o5NDrA1b4z2lug==";
         private static DocumentClient client;
 
         static void Main(string[] args)
