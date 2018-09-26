@@ -77,6 +77,9 @@
 
             try
             {
+                ConnectionPolicy.SetCurrentLocation(LocationNames.WestUS2);
+                ConnectionPolicy.UseMultipleWriteLocations = true;
+
                 using (var client = new DocumentClient(
                     new Uri(endpoint),
                     authKey,

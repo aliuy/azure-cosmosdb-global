@@ -37,7 +37,7 @@ namespace GlobalDemo
                 var sw = new Stopwatch();
                 sw.Start();
                 
-                var document = client.CreateDocumentQuery<dynamic>(UriFactory.CreateDocumentCollectionUri("db", "data"), "SELECT TOP 1 * FROM c WHERE c.pk = 'test' ORDER BY c._ts desc").ToList().FirstOrDefault();
+                var document = client.CreateDocumentQuery<dynamic>(UriFactory.CreateDocumentCollectionUri("db", "bigdata"), "SELECT TOP 1 * FROM c WHERE c.pk = 'test' ORDER BY c._ts desc").ToList().FirstOrDefault();
 
                 //Console.WriteLine(document);
 
