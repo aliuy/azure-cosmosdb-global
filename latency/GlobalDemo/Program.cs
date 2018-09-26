@@ -26,7 +26,7 @@ namespace GlobalDemo
             //Setting read region selection preference
             connectionPolicy.PreferredLocations.Add(LocationNames.WestUS2); // first preference
             connectionPolicy.PreferredLocations.Add(LocationNames.EastUS); // second preference
-            connectionPolicy.PreferredLocations.Add(LocationNames.SoutheastAsia); // third preference
+            connectionPolicy.PreferredLocations.Add(LocationNames.WestEurope); // third preference
 
             client = new DocumentClient(new Uri(EndpointUri), PrimaryKey, connectionPolicy: connectionPolicy);
 
@@ -39,7 +39,7 @@ namespace GlobalDemo
                 
                 var document = client.CreateDocumentQuery<dynamic>(UriFactory.CreateDocumentCollectionUri("db", "data"), "SELECT TOP 1 * FROM c WHERE c.pk = 'test' ORDER BY c._ts desc").ToList().FirstOrDefault();
 
-                Console.WriteLine(document);
+                //Console.WriteLine(document);
 
                 sw.Stop();
 

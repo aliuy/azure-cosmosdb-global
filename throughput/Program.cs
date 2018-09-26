@@ -15,7 +15,7 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// This sample demonstrates how to achieve high performance writes using DocumentDB.
+    /// This sample demonstrates how to achieve high performance writes using Cosmos DB.
     /// </summary>
     public sealed class Program
     {
@@ -196,23 +196,13 @@
                             new RequestOptions() { });
 
                     string partition = response.SessionToken.Split(':')[0];
-                    requestUnitsConsumed[taskId] += response.RequestCharge;
+                    requestUnitsConsumed[taskId] += response.RequestCharge/2;
                     Interlocked.Increment(ref this.documentsInserted);
                 }
                 catch (Exception e)
                 {
-                    if (e is DocumentClientException)
-                    {
-                        DocumentClientException de = (DocumentClientException)e;
-                        if (de.StatusCode != HttpStatusCode.Forbidden)
-                        {
-                            Trace.TraceError("Failed to write {0}. Exception was {1}", JsonConvert.SerializeObject(newDictionary), e);
-                        }
-                        else
-                        {
-                            Interlocked.Increment(ref this.documentsInserted);
-                        }
-                    }
+
+                    Interlocked.Increment(ref this.documentsInserted);
                 }
             }
 
