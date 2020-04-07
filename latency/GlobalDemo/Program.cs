@@ -25,8 +25,7 @@ namespace GlobalDemo
             };
             //Setting read region selection preference
             connectionPolicy.PreferredLocations.Add(LocationNames.WestUS2); // first preference
-            connectionPolicy.PreferredLocations.Add(LocationNames.EastUS); // second preference
-            connectionPolicy.PreferredLocations.Add(LocationNames.WestEurope); // third preference
+            connectionPolicy.PreferredLocations.Add(LocationNames.FranceCentral); // second preference
 
             client = new DocumentClient(new Uri(EndpointUri), PrimaryKey, connectionPolicy: connectionPolicy);
 
