@@ -1,4 +1,4 @@
-﻿namespace DocumentDBBenchmark
+﻿namespace CosmosDBBenchmark
 {
     using System;
     using System.Collections.Generic;
@@ -47,7 +47,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Program"/> class.
         /// </summary>
-        /// <param name="client">The DocumentDB client instance.</param>
+        /// <param name="client">The Cosmos DB client instance.</param>
         private Program(DocumentClient client)
         {
             this.client = client;
@@ -73,7 +73,7 @@
             Console.WriteLine("--------------------------------------------------------------------- ");
             Console.WriteLine();
 
-            Console.WriteLine("DocumentDBBenchmark starting...");
+            Console.WriteLine("CosmosDBBenchmark starting...");
 
             try
             {
@@ -87,7 +87,7 @@
                 {
                     var program = new Program(client);
                     program.RunAsync().Wait();
-                    Console.WriteLine("DocumentDBBenchmark completed successfully.");
+                    Console.WriteLine("Cosmos DB Benchmark completed successfully.");
                 }
             }
 
@@ -146,8 +146,7 @@
 
             if (degreeOfParallelism == -1)
             {
-                // set TaskCount = 10 for each 10k RUs
-                taskCount = currentCollectionThroughput / 1000;
+                taskCount = currentCollectionThroughput / 300;
                 if (taskCount >= 250)
                 {
                     taskCount = 250;
@@ -199,7 +198,7 @@
                             new RequestOptions() { });
 
                     string partition = response.SessionToken.Split(':')[0];
-                    requestUnitsConsumed[taskId] += response.RequestCharge/2;
+                    requestUnitsConsumed[taskId] += response.RequestCharge/4; // Divide global write charge by # of regions
                     Interlocked.Increment(ref this.documentsInserted);
                 }
                 catch (Exception e)

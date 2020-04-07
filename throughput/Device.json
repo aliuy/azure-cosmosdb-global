@@ -1,0 +1,15 @@
+﻿{
+	"Interval": "00:00:10",
+	"MessageTemplate": "{\"floor\":${floor},\"vibration\":${vibration},\"vibration_unit\":\"${vibration_unit}\",\"temperature\":${temperature},\"temperature_unit\":\"${temperature_unit}\"}",
+	"MessageSchema": {
+		"Name": "elevator-sensors;v1",
+		"Format": "JSON",
+		"Fields": {
+			"floor": "integer",
+			"vibration": "double",
+			"vibration_unit": "text",
+			"temperature": "double",
+			"temperature_unit": "text"
+		}
+	}
+}

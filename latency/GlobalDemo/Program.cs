@@ -37,7 +37,7 @@ namespace GlobalDemo
                 var sw = new Stopwatch();
                 sw.Start();
                 
-                var document = client.CreateDocumentQuery<dynamic>(UriFactory.CreateDocumentCollectionUri("db", "bigdata"), "SELECT TOP 1 * FROM c WHERE c.pk = 'test' ORDER BY c._ts desc").ToList().FirstOrDefault();
+                var document = client.CreateDocumentQuery<dynamic>(UriFactory.CreateDocumentCollectionUri("db", "device-telemetry"), "SELECT TOP 1 * FROM c WHERE c.deviceId = 'test'").ToList().FirstOrDefault();
 
                 //Console.WriteLine(document);
 
@@ -45,7 +45,7 @@ namespace GlobalDemo
 
                 Console.WriteLine($"Query document in {sw.ElapsedMilliseconds} ms");
 
-                Thread.Sleep(500);
+                Thread.Sleep(100);
             }
         }
     }
