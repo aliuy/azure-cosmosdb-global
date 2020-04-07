@@ -37,7 +37,7 @@ namespace GlobalDemo
                 var sw = new Stopwatch();
                 sw.Start();
                 
-                var document = client.CreateDocumentQuery<dynamic>(UriFactory.CreateDocumentCollectionUri("db", "device-telemetry"), "SELECT TOP 1 * FROM c WHERE c.deviceId = 'test'").ToList().FirstOrDefault();
+                var document = client.CreateDocumentQuery<dynamic>(UriFactory.CreateDocumentCollectionUri("db", "data"), "SELECT TOP 1 * FROM c WHERE c.playerId = 'test'").ToList().FirstOrDefault();
 
                 //Console.WriteLine(document);
 

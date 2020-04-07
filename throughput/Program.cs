@@ -38,6 +38,7 @@
 
         private static readonly string InstanceId = Dns.GetHostEntry("LocalHost").HostName + Process.GetCurrentProcess().Id;
         private const int MinThreadPoolSize = 100;
+        private const int NumRegions = 2;
 
         private int pendingTaskCount;
         private long documentsInserted;
@@ -146,7 +147,7 @@
 
             if (degreeOfParallelism == -1)
             {
-                taskCount = currentCollectionThroughput / 300;
+                taskCount = currentCollectionThroughput / 1000;
                 if (taskCount >= 250)
                 {
                     taskCount = 250;
@@ -198,7 +199,7 @@
                             new RequestOptions() { });
 
                     string partition = response.SessionToken.Split(':')[0];
-                    requestUnitsConsumed[taskId] += response.RequestCharge/4; // Divide global write charge by # of regions
+                    requestUnitsConsumed[taskId] += response.RequestCharge / NumRegions;
                     Interlocked.Increment(ref this.documentsInserted);
                 }
                 catch (Exception e)
