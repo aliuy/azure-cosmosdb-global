@@ -370,7 +370,7 @@ namespace AutoscaleDemo
             double containerMinCostPerHour = (0.012 * 0.1 * AutoscaleMaxThroughput) / 100;
             double containerMaxCostPerHour = (0.012 * AutoscaleMaxThroughput) / 100;
 
-            Console.WriteLine("Found container {0} with autoscale between {1} to {2} RU/s.\nHourly cost will be between ${3} to ${4} based on usage. Monthly cost will be between ${4} to ${5} based on usage\n", container.Id, 0.1 * AutoscaleMaxThroughput, AutoscaleMaxThroughput, containerMinCostPerHour, containerMaxCostPerHour, containerMinCostPerMonth, containerMaxCostPerMonth);           
+            Console.WriteLine("Found container {0} with autoscale between {1} to {2} RU/s.\nHourly cost will be between ${3} to ${4} based on usage. Monthly cost will be between ${5} to ${6} based on usage\n", container.Id, 0.1 * AutoscaleMaxThroughput, AutoscaleMaxThroughput, containerMinCostPerHour, containerMaxCostPerHour, containerMinCostPerMonth, containerMaxCostPerMonth);
 
             //Console.WriteLine("Press enter to continue ...");
             //Console.ReadLine();
