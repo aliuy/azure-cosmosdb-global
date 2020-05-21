@@ -26,7 +26,7 @@ Otherwise, you will need a VM with [.NET Core](https://dotnet.microsoft.com/down
 
 When you run the sample, the program first creates an autoscale container that can scale between 5000 to 50,000 RU/s. The estimated cost in USD is $0.60 to $6.00 an hour, or $438 to $4380 per month, based on usage. Azure Cosmos DB bills you for the highest RU/s the system scaled to within an hour, or the minimum 0.1 * max RU/s if there is no usage. Because this demo is designed to run continuously at high throughput for several hours, it is likely the system will scale to the max RU/s in those hours. As a recommendation, **always clean up your demo resources when not in use.**
 
-> Want to run this demo with Azure Cosmos DB free tier? Set the autoscale max RU/s to the minimum of 4000 RU/s in `App.config`, which scales between 400 - 4000 RU/s. It'll cost up to $0.48 USD in the hours where the system scales up, and $0 if there is no usage. 
+**TIP**: Want to run this demo with Azure Cosmos DB free tier? Set the autoscale max RU/s to the minimum of 4000 RU/s in `App.config`, which scales between 400 - 4000 RU/s. It'll cost up to $0.48 USD in the hours where the system scales up, and $0 if there is no usage. 
 
 There are three main components to the program:
 
@@ -38,7 +38,7 @@ There are three main components to the program:
 
 Based on the number of documents to insert and the autoscale max RU/s of the container defined in `App.config`, the program will spin up a series of `InsertDocuments` tasks to insert batches of documents. Within the task, it waits a preset amount of delay in between writes. While this is running, `LogOutputStats` writes the current throughput achieved each second. `ChangeDelayBetweenOperations` runs every set interval to change the amount of delay between writes, to simulate different traffic patterns.
 
-> For best results, run the data generator continuously for a few hours before the demo, with the setting that changes the traffic pattern every 8 minutes. This will ensure there is a history of different RU/s values the system has scaled to over a longer period of time.
+**TIP**: For best results, run the data generator continuously for a few hours before the demo, with the setting that changes the traffic pattern every 8 minutes. This will ensure there is a history of different RU/s values the system has scaled to over a longer period of time.
 
 ## Generate the graph in Azure Monitor
 In **Azure Monitor**, navigate to **Metrics**. Select your Azure Cosmos DB account, database, and collection name. To re-create the graph, select the `Autoscale Max Throughput` and `Provisioned Throughput` metric. These metrics are emitted by the system every 5 minutes and represent the highest value within the 5 minute interval. 
